@@ -7,10 +7,17 @@ var f = x => -Math.pow(x * x - 4 * x + 15, 2) / 256,
   iteration = new Itaration(numLen, f),
   a = inArr;
 console.log(a);
-var count = 0;
-while (_.maxBy(_.entries(_.countBy(a)), a => a[1])[1] < numLen * 0.9) {
+var count = 0, maxNum = {};
+while (
+count < 10 &&
+(maxNum = _.maxBy(_.entries(_.countBy(a)), a => a[1])) &&
+maxNum[1] < numLen * 0.9
+  ) {
   a = iteration.iterate(a);
   console.log(a);
+  console.log('\n\n\n');
   ++count;
 }
-console.log(count);
+
+console.log(maxNum);
+console.log('Num of iterations ' + count);
