@@ -15,7 +15,7 @@ String.prototype.replaceAt = function(index, character) {
     this.substr(index);
 };
 
-module.exports = class {
+module.exports = class Itaration {
 
   constructor(numLen, f) {
     this.f = f;
@@ -37,10 +37,12 @@ module.exports = class {
      * }]
      */
     var probArr = this.getProbArr(a);
+    console.log(probArr);
     // generate random
     for (i = 0; i < this.aLen; ++i) {
       rndArr.push(rnd());
     }
+    console.log(rndArr);
     // voting
     voutes = rndArr.reduce((ans, el) => {
       for (i = 1; i < probArr.length; ++i) {
@@ -50,7 +52,7 @@ module.exports = class {
       }
       return ans.concat([_.last(probArr).a])
     }, []);
-
+    console.log(voutes);
     //swap bits
     bits = voutes.map(x => this.numToBit(x));
     for (i = 0; i < this.aLen; i += 2) {
@@ -78,15 +80,18 @@ module.exports = class {
   }
 
   checkMutate() {
-    return Math.random() > 0.875
+    return Math.random() > 0.9
   }
 
   getProbArr(a) {
     var a1 = a.map(this.f);
     var min = _.min(a1);
-    a1 = a.map(x => x - min);
+    // console.log(min);
+    a1 = a1.map(x => x - min);
+    // console.log(a1);
     var sum2 = _.sum(a1);
     a1 = a1.map(x => x / sum2 * 100);
+    // console.log(a1);
     return a1.reduce((arr, el, i) => {
       if (el === 0) {
         return arr;
